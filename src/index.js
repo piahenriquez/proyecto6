@@ -8,8 +8,10 @@ const jwt = require('jsonwebtoken');
 const connectDB = require("./config/db");
 
 
-const userRouter = require("./routes/user");
-const taskRouter = require("./routes/task");
+
+const userRoutes = require("./routes/user.Routes");
+const taskRoutes = require("./routes/task.Routes");
+
 
 // Inicializar la app
 const app = express();
@@ -27,8 +29,8 @@ app.get("/", (req, res) => {
     res.json({ message: "API To-Do List funcionando!" });
 });
 
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/tasks", taskRouter);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/tasks", taskRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
