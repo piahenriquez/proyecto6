@@ -5,24 +5,33 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true, // Asegura que no haya usuarios con el mismo nombre
-        minlegth: 3,
+        minlength: 3,
     },
     email: {
         type: String,
         required: true,
         unique: true, // Asegura que no haya usuarios con el mismo email
         lowercase: true,
-        match: [/.+\@.+\..+/, 'Por favor ingresa un email válido'] // Validación básica de formato de email
+        match: [/^\S+@\S+\.\S+$/, 'Por favor ingresa un email válido']
+
     },
     password: {
         type: String,
         required: true,
-        minlegth: 6,
+        minlength: 6,
     },
 }, {
      timestamps: true,
 }
 );
+
+//middleware
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    const bcrypt = require('bcryptjs');
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+});
 
 const User = mongoose.model('User', userSchema);
 

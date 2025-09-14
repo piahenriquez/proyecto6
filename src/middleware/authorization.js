@@ -6,23 +6,24 @@ module.exports = (req, res, next) => {
   if (!authorization) {
     return res
       .status(401)
-      .json({ message: "No autorizado, No se encontro token" });
+      .json({ message: "No autorizado, no se encontró token" });
   }
 
   try {
     const [type, token] = authorization.split(" ");
 
-    if (type !== "Bearer" && type !== "token") {
+    if (type !== "Bearer") {
       return res
         .status(401)
-        .json({ error: "Formato de autorización inválido." });
+        .json({ message: "Formato de autorización inválido" });
     }
+
     // Verificar token con la SECRET
     const decoded = jwt.verify(token, process.env.SECRET);
 
-    req.user = decoded.user;
+    req.user = decoded.user; 
     next();
   } catch (error) {
-    return res.status(401).json({ message: "No autorizado, Token inválido" });
+    return res.status(401).json({ message: "No autorizado" });
   }
 };
