@@ -98,4 +98,22 @@ exports.getUserById = async (req, res) => {
     res.status(500).json({ message: "Error al obtener usuario" });
   }
 };
+//actualizar usuario
+exports.updateUser = async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      req.body,
+      { new: true }
+    ).select("-password");
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    res.json({ message: "Usuario actualizado correctamente", data: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar usuario" });
+  }
+};
 

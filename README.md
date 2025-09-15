@@ -90,6 +90,20 @@ Cada usuario solo puede ver, actualizar o eliminar sus propias tareas.
   - **Headers:**  
     `Authorization: Bearer <token>`
 
+- **Actualizar usuario**
+  - `PUT /api/v1/users/update`
+  - **Headers:**  
+    `Authorization: Bearer <token>`
+    - **Body (JSON):**
+    ```json
+    {
+      "username": "nuevousuario",
+      "email": "nuevocorreo@ejemplo.com",
+      "password": "nuevacontraseña"
+    }
+    ```
+
+
 ---
 
 ### ✅ Tareas
