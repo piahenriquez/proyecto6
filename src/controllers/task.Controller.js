@@ -9,7 +9,7 @@ exports.createTask = async (req, res) => {
             return res.status(400).json({ message: "El título es obligatorio" });
         }
 
-        // Evitar tareas duplicadas por título para el mismo usuario
+        // Evitar tareas duplicadas 
         const existingTask = await Task.findOne({ title: title.trim(), user: req.user.id });
         if (existingTask) {
             return res.status(400).json({ message: "Ya existe una tarea con ese título" });

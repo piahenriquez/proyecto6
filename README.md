@@ -102,7 +102,8 @@ Cada usuario solo puede ver, actualizar o eliminar sus propias tareas.
     ```json
     {
       "title": "Mi tarea",
-      "description": "Descripción opcional"
+      "description": "Descripción opcional",
+      "completed": "false"
     }
     ```
 
